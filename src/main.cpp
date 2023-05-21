@@ -1,4 +1,3 @@
-#include "BSTMenuEvent.h"
 #include "HeroMenu.h"
 #include "Hook.h"
 

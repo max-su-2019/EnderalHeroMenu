@@ -79,6 +79,7 @@ namespace enderal
 			view_ = a_menu->uiMovie;
 			a_menu->menuFlags.set(flag::kPausesGame,
 				flag::kUsesCursor,
+				flag::kUsesMenuContext,
 				flag::kDisablePauseMenu,
 				flag::kUpdateUsesCursor,
 				flag::kTopmostRenderedMenu);
@@ -146,7 +147,6 @@ namespace enderal
 
 		void on_close()
 		{
-			
 		}
 
 		static void close_menu([[maybe_unused]] const RE::FxDelegateArgs& a_params)
