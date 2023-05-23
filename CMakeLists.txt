@@ -13,7 +13,7 @@ include(GNUInstallDirs)
 # info
 project(
 	EnderalHeroMenu
-	VERSION 0.0.2
+	VERSION 1.0.1
 	LANGUAGES CXX
 )
 

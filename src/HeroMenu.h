@@ -1,8 +1,4 @@
 #pragma once
-#include "CLIK/Array.h"
-#include "CLIK/GFx/Controls/Button.h"
-#include "CLIK/GFx/Controls/ScrollingList.h"
-#include "CLIK/TextField.h"
 
 namespace enderal
 {
@@ -91,7 +87,7 @@ namespace enderal
 			view_->SetVisible(true);
 		}
 
-		//void PostCreate() override { on_open(); }
+		void PostCreate() override { on_open(); }
 
 		RE::UI_MESSAGE_RESULTS ProcessMessage(RE::UIMessage& a_message) override
 		{
@@ -138,15 +134,12 @@ namespace enderal
 
 		void on_open()
 		{
-			RE::GFxValue stringInfos[2];
-			stringInfos[0].SetString("TestPlayerName");
-			stringInfos[1].SetString("TestPlayerClass");
-
-			view_->InvokeNoReturn("_root.heromenu_mc.SetStringValues", stringInfos, 2);
+			RE::UIBlurManager::GetSingleton()->IncrementBlurCount();
 		}
 
 		void on_close()
 		{
+			RE::UIBlurManager::GetSingleton()->DecrementBlurCount();
 		}
 
 		static void close_menu([[maybe_unused]] const RE::FxDelegateArgs& a_params)
@@ -157,9 +150,5 @@ namespace enderal
 
 		RE::GPtr<RE::GFxMovieView> view_;
 		bool is_active_ = false;
-
-		CLIK::MovieClip root_obj_;
-		CLIK::TextField title_;
-		CLIK::GFx::Controls::Button next_;
 	};
 }

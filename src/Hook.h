@@ -1,7 +1,9 @@
 #pragma once
+#include "DKUtil/Hook.hpp"
 
 namespace enderal
 {
+	using namespace DKUtil::Hook;
 
 	using EventResult = RE::BSEventNotifyControl;
 
@@ -44,10 +46,10 @@ namespace enderal
 	public:
 		static void InstallHook()
 		{
-			REL::Relocation<uintptr_t> hook{ REL::ID(39346) };  //14069ABF0
+			REL::Relocation<uintptr_t> hook{ REL::ID(51400) };  //1408AA140
 			auto& trampoline = SKSE::GetTrampoline();
 			SKSE::AllocTrampoline(1 << 4);
-			_OpenQuickStatsMenu = trampoline.write_branch<5>(hook.address() + 0x6a, OpenQuickStatsMenu);
+			_OpenQuickStatsMenu = trampoline.write_call<5>(hook.address() + 0x483, OpenQuickStatsMenu);
 		};
 
 	private:
@@ -55,4 +57,23 @@ namespace enderal
 
 		static inline REL::Relocation<decltype(OpenQuickStatsMenu)> _OpenQuickStatsMenu;
 	};
+
+	class StatsMenuBlackScreenHook
+	{
+	public:
+		static void InstallHook()
+		{
+			REL::Relocation<uintptr_t> hook{ REL::ID(51400) };  //1408AA140
+			auto& trampoline = SKSE::GetTrampoline();
+			SKSE::AllocTrampoline(1 << 4);
+			trampoline.write_call<5>(hook.address() + 0x436, ProcessMenuBlackScreen);
+		};
+
+	private:
+		static std::int32_t ProcessMenuBlackScreen(char a1, char a2, std::int32_t a3, char a4, std::int32_t a5)
+		{
+			return 0;
+		}
+	};
+
 }

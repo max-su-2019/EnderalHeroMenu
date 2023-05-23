@@ -1,5 +1,4 @@
-#include "HeroMenu.h"
-#include "Hook.h"
+#include "LoadGame.h"
 
 DLLEXPORT constinit auto SKSEPlugin_Version = []() noexcept {
 	SKSE::PluginVersionData data{};
@@ -37,10 +36,13 @@ DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 	INFO("{} v{} loaded", Plugin::NAME, Plugin::Version);
 
 	// do stuff
-	enderal::HeroMenu::Register();
-	enderal::TweenMenuOpenSubHook::InstallHook();
-	//enderal::OpenQuickStatsMenuHook::InstallHook();
-	enderal::MenuControlsHook::InstallHook();
+	auto g_message = SKSE::GetMessagingInterface();
+	if (!g_message) {
+		ERROR("Messaging Interface Not Found!");
+		return false;
+	}
+
+	g_message->RegisterListener(enderal::EventCallback);
 
 	return true;
 }

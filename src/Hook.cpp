@@ -66,7 +66,10 @@ namespace enderal
 
 	void OpenQuickStatsMenuHook::OpenQuickStatsMenu(RE::UIMessageQueue* queue, const RE::BSFixedString& a_menuName, RE::UI_MESSAGE_TYPE a_type, RE::IUIMessageData* a_data)
 	{
-		return _OpenQuickStatsMenu(queue, HeroMenu::menu_name, a_type, a_data);
+		if (strcmpi(a_menuName.c_str(), RE::StatsMenu::MENU_NAME.data()) == 0)
+			HeroMenu::open();
+		else
+			return _OpenQuickStatsMenu(queue, a_menuName, a_type, a_data);
 	}
 
 }
