@@ -56,7 +56,7 @@ namespace enderal
 			const auto scaleform_manager = RE::BSScaleformManager::GetSingleton();
 			[[maybe_unused]] const auto success = scaleform_manager->LoadMovieEx(a_menu,
 				file_name,
-				RE::BSScaleformManager::ScaleModeType::kExactFit,
+				RE::BSScaleformManager::ScaleModeType::kNoBorder,
 				[&](RE::GFxMovieDef* a_def) -> void {
 					fxDelegate.reset(new RE::FxDelegate);
 					fxDelegate->RegisterHandler(this);
@@ -81,7 +81,7 @@ namespace enderal
 				flag::kTopmostRenderedMenu);
 
 			a_menu->depthPriority = 5;
-			a_menu->inputContext = context::kNone;
+			a_menu->inputContext = context::kMenuMode;
 
 			is_active_ = true;
 			view_->SetVisible(true);
